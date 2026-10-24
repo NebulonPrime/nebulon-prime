@@ -1,0 +1,23 @@
+#!/bin/bash
+# Runs once on first boot: create a snapper config for /var/home if it is a Btrfs subvolume.
+
+set -euo pipefail
+
+if ! btrfs subvolume show /var/home >/dev/null 2>&1; then
+    echo "/var/home is not a Btrfs subvolume; skipping snapshot setup."
+    exit 0
+fi
+
+snapper -c home create-config /var/home
+
+# Keep: 12 hourly, 7 daily, 4 weekly, 3 monthly snapshots
+snapper -c home set-config \
+    TIMELINE_CREATE=yes \
+    TIMELINE_CLEANUP=yes \
+    TIMELINE_LIMIT_HOURLY=12 \
+    TIMELINE_LIMIT_DAILY=7 \
+    TIMELINE_LIMIT_WEEKLY=4 \
+    TIMELINE_LIMIT_MONTHLY=3 \
+    TIMELINE_LIMIT_YEARLY=0 \
+    ALLOW_GROUPS=wheel \
+    SYNC_ACL=yes

@@ -1,0 +1,6 @@
+[Default Applications]
+# Double-clicking a Windows program opens it in Bottles
+application/x-ms-dos-executable=com.usebottles.bottles.desktop
+application/x-msdownload=com.usebottles.bottles.desktop
+application/x-msi=com.usebottles.bottles.desktop
+application/x-ms-shortcut=com.usebottles.bottles.desktop
