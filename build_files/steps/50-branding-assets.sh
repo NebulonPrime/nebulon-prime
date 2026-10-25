@@ -60,6 +60,7 @@ install -d "$WP/contents/images"
 render "$B/wallpaper.svg" /tmp/wallpaper.png 3840 2160
 cjxl /tmp/wallpaper.png "$WP/contents/images/3840x2160.jxl" -d 1
 render "$B/wallpaper.svg" "$WP/contents/screenshot.png" 400 225
+rm -f /tmp/wallpaper.png
 cat > "$WP/metadata.json" <<'EOF'
 {
     "KPlugin": {
