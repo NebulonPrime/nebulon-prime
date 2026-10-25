@@ -13,6 +13,17 @@ The changes are in `build_files/steps/20-privacy-offline.sh`.
 | Tailscale (`tailscaled`) | Aurora ships it enabled | Disabled; enable it yourself if you use Tailscale |
 | GeoClue | Looks up your location over the network | Disabled; set a location manually for night light |
 
+## Firefox defaults
+
+Firefox comes preinstalled as a Flatpak, which you can uninstall.
+These are defaults, not locks, so you can change them in Firefox's settings.
+They're set in `system_files/usr/share/ublue-os/firefox-config/10-nebulon-privacy.js`.
+
+- Telemetry, health reports, and usage and crash report uploads are off.
+- Shield studies and Normandy remote experiments are off.
+- Privacy-preserving attribution, Mozilla's ad measurement feature, is off.
+- Sponsored shortcuts, stories and search suggestions, and Pocket, are off.
+
 ## Already off upstream
 
 - **KDE User Feedback** is opt-in and off by default.

@@ -47,11 +47,17 @@ function addTaskList(panel, fill) {
 
 // CPU and RAM use, shown as live numbers in the taskbar
 function addSystemMonitors(panel) {
-    const monitors = ["org.kde.plasma.systemmonitor.cpu", "org.kde.plasma.systemmonitor.memory"];
+    const monitors = [
+        ["org.kde.plasma.systemmonitor.cpu", "cpu/all/usage", "CPU"],
+        ["org.kde.plasma.systemmonitor.memory", "memory/physical/used", "RAM"],
+    ];
     for (let i = 0; i < monitors.length; ++i) {
-        const w = panel.addWidget(monitors[i]);
+        const w = panel.addWidget(monitors[i][0]);
         w.currentConfigGroup = ["Appearance"];
         w.writeConfig("chartFace", "org.kde.ksysguard.textonly");
+        // The sensors' own names ("Usage", "Used") don't say which is which
+        w.currentConfigGroup = ["SensorLabels"];
+        w.writeConfig(monitors[i][1], monitors[i][2]);
     }
 }
 

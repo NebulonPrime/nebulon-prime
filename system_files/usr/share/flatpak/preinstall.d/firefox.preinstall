@@ -1,0 +1,4 @@
+# Default web browser (a Flatpak, so users can uninstall it like any other app)
+[Flatpak Preinstall org.mozilla.firefox]
+Branch=stable
+IsRuntime=false
