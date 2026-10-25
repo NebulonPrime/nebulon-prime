@@ -1,0 +1,4 @@
+# Breeze theme for Flatpak GTK apps, so they match KDE apps
+[Flatpak Preinstall org.gtk.Gtk3theme.Breeze]
+Branch=3.22
+IsRuntime=true

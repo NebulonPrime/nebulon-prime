@@ -9,6 +9,7 @@ ARG BASE_IMAGE=ghcr.io/ublue-os/aurora:stable
 FROM scratch AS ctx
 COPY build_files /
 COPY system_files /system_files
+COPY branding /branding
 
 FROM ${BASE_IMAGE}
 

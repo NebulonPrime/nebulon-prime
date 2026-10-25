@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 256 256">
+  <!-- Single-colour version for menus and the taskbar; KDE recolours it to match the theme -->
+  <path fill="#232629" fill-rule="evenodd" d="M128 12a116 116 0 1 0 0 232a116 116 0 1 0 0-232z M78 186 V70 h22 l56 78 V70 h22 v116 h-22 l-56 -78 v78 z"/>
+  <path fill="#232629" d="M214 18 q4 22 26 26 q-22 4 -26 26 q-4 -22 -26 -26 q22 -4 26 -26 z"/>
+</svg>

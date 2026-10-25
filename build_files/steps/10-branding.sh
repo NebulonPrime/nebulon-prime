@@ -19,11 +19,14 @@ sed -i \
 grep -q '^IMAGE_ID=' /usr/lib/os-release || echo "IMAGE_ID=${OS_ID}" >> /usr/lib/os-release
 sed -i "s|^IMAGE_ID=.*|IMAGE_ID=${OS_ID}|" /usr/lib/os-release
 
-# KDE "About this System" page
-mkdir -p /etc/xdg
-cat > /etc/xdg/kcm-about-distrorc <<EOF
+# KDE "About this System" page (Aurora also ships one in the KDE profile; replace both)
+for f in /etc/xdg/kcm-about-distrorc /usr/share/kde-settings/kde-profile/default/xdg/kcm-about-distrorc; do
+    mkdir -p "$(dirname "$f")"
+    cat > "$f" <<EOF
 [General]
+LogoPath=/usr/share/pixmaps/system-logo.png
 Name=${OS_PRETTY_NAME}
 Variant=${OS_VARIANT}
 Website=
 EOF
+done

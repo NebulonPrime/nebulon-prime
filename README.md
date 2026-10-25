@@ -6,6 +6,7 @@ A Windows-style desktop OS that runs Windows apps, built on Fedora Atomic (Unive
 - **Offline-first, zero telemetry.** No account needed, and nothing phones home. See [docs/PRIVACY.md](docs/PRIVACY.md).
 - **Windows apps.** Bottles (Wine) comes preinstalled, and double-clicking an `.exe` opens it.
 - **Removable apps.** Apps you see are Flatpaks, and any of them can be uninstalled.
+- **Windows-style desktop.** Windows 11, 10 or 7 style taskbar and Start menu, with live CPU/RAM use in the taskbar.
 - **Automatic snapshots** of your home folder, which you can browse and restore in Btrfs Assistant.
 
 ## Editions
@@ -18,9 +19,13 @@ A Windows-style desktop OS that runs Windows apps, built on Fedora Atomic (Unive
 ## Roadmap
 
 - [x] Base image, branding, privacy defaults, Bottles, snapshots, NVIDIA + AMD/Intel builds
-- [ ] Windows-style layouts (Win 11 default, Win 10, Win 7) chosen on first boot
-- [ ] CPU/RAM monitors in the taskbar
-- [ ] Unified theme across KDE, GTK and Wine apps
+- [x] Nebulon Prime logo, wallpaper and boot splash
+- [x] Windows-style layouts (Win 11 default, Win 10, Win 7), switchable in System Settings > Global Theme
+- [x] CPU/RAM monitors in the taskbar
+- [x] Unified theme across KDE and GTK apps (Breeze, Nebulon violet accent)
+- [ ] Layout picker on first boot
+- [ ] Installer (Anaconda) branding
+- [ ] Matching theme for Wine apps
 - [ ] Per-icon desktop sizes
 - [ ] Multi-seat helper (two users, two screens, one PC)
 - [ ] Experimental: two cursors on one screen

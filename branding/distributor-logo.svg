@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <defs>
+    <radialGradient id="core" cx="0.38" cy="0.34" r="0.78">
+      <stop offset="0" stop-color="#5b3cc4"/>
+      <stop offset="0.55" stop-color="#2a1a6e"/>
+      <stop offset="1" stop-color="#0d0a2b"/>
+    </radialGradient>
+    <linearGradient id="ring" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#22d3ee"/>
+      <stop offset="0.5" stop-color="#8b5cf6"/>
+      <stop offset="1" stop-color="#f472b6"/>
+    </linearGradient>
+    <linearGradient id="letter" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#c7d2fe"/>
+    </linearGradient>
+  </defs>
+  <!-- disc -->
+  <circle cx="128" cy="128" r="116" fill="url(#core)"/>
+  <circle cx="128" cy="128" r="116" fill="none" stroke="url(#ring)" stroke-width="10"/>
+  <!-- orbit -->
+  <ellipse cx="128" cy="132" rx="104" ry="34" fill="none" stroke="url(#ring)" stroke-width="5"
+           stroke-linecap="round" stroke-dasharray="250 40" transform="rotate(-24 128 132)" opacity="0.9"/>
+  <!-- N -->
+  <path d="M78 186 V70 h22 l56 78 V70 h22 v116 h-22 l-56 -78 v78 z" fill="url(#letter)"/>
+  <!-- prime star -->
+  <path d="M190 40 q4 22 26 26 q-22 4 -26 26 q-4 -22 -26 -26 q22 -4 26 -26 z" fill="#ffffff"/>
+</svg>
