@@ -1,4 +1,4 @@
-# MyOS
+# Nebulon Prime
 
 A Windows-style desktop OS that runs Windows apps, built on Fedora Atomic (Universal Blue Aurora, KDE Plasma).
 
@@ -12,8 +12,8 @@ A Windows-style desktop OS that runs Windows apps, built on Fedora Atomic (Unive
 
 | Image | Graphics |
 |---|---|
-| `ghcr.io/CHANGE-ME/myos` | AMD, Intel |
-| `ghcr.io/CHANGE-ME/myos-nvidia` | NVIDIA GTX 16-series, RTX 20-series and newer |
+| `ghcr.io/nebulonprime/nebulon-prime` | AMD, Intel |
+| `ghcr.io/nebulonprime/nebulon-prime-nvidia` | NVIDIA GTX 16-series, RTX 20-series and newer |
 
 ## Roadmap
 
