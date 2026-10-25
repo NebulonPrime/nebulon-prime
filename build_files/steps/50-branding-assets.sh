@@ -93,7 +93,7 @@ EOF
 ### Boot splash (Plymouth spinner theme watermark), then rebuild the initramfs that carries it
 PLY=/usr/share/plymouth/themes/spinner
 install -d "$PLY"
-render "$B/banner.svg" "$PLY/watermark.png" 240 60
+render "$B/banner.svg" "$PLY/watermark.png" 440 110
 cp "$PLY/watermark.png" "$PLY/kinoite-watermark.png"
 
 KERNEL_VERSION="$(ls /usr/lib/modules | sort -V | tail -n1)"
