@@ -75,6 +75,20 @@ for name in default.jxl default-dark.jxl; do
     rm -f "/usr/share/backgrounds/$name"
     ln -sr "$WP/contents/images/3840x2160.jxl" "/usr/share/backgrounds/$name"
 done
+# Anything still asking for Aurora's default wallpaper by name gets ours
+rm -rf /usr/share/wallpapers/Aurora
+ln -sr "$WP" /usr/share/wallpapers/Aurora
+
+# Login screen (Plasma Login Manager) background
+install -d /usr/lib/plasmalogin
+cat > /usr/lib/plasmalogin/defaults.conf <<'EOF'
+[Greeter]
+WallpaperPlugin=org.kde.image
+
+[Greeter][Wallpaper][org.kde.image][General]
+Image=file:///usr/share/wallpapers/NebulonPrime/
+PreviewImage=file:///usr/share/wallpapers/NebulonPrime/
+EOF
 
 ### Boot splash (Plymouth spinner theme watermark), then rebuild the initramfs that carries it
 PLY=/usr/share/plymouth/themes/spinner
