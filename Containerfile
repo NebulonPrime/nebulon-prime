@@ -1,13 +1,15 @@
+# Base image: Aurora (Fedora Atomic + KDE Plasma) from Universal Blue.
+# The CI builds two variants from this one file:
+#   ghcr.io/ublue-os/aurora:stable              -> AMD / Intel graphics
+#   ghcr.io/ublue-os/aurora-nvidia-open:stable  -> NVIDIA (RTX 20-series and newer, GTX 16-series)
+# Must be declared before the first FROM to be usable in a FROM line.
+ARG BASE_IMAGE=ghcr.io/ublue-os/aurora:stable
+
 # Allow build scripts to be referenced without being copied into the final image
 FROM scratch AS ctx
 COPY build_files /
 COPY system_files /system_files
 
-# Base image: Aurora (Fedora Atomic + KDE Plasma) from Universal Blue.
-# The CI builds two variants from this one file:
-#   ghcr.io/ublue-os/aurora:stable              -> AMD / Intel graphics
-#   ghcr.io/ublue-os/aurora-nvidia-open:stable  -> NVIDIA (RTX 20-series and newer, GTX 16-series)
-ARG BASE_IMAGE=ghcr.io/ublue-os/aurora:stable
 FROM ${BASE_IMAGE}
 
 # OS branding, set from image-template.env by the Justfile / CI
