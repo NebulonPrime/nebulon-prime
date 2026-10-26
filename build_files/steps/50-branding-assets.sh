@@ -58,7 +58,7 @@ gtk-update-icon-cache -f /usr/share/icons/hicolor || true
 WP=/usr/share/wallpapers/NebulonPrime
 install -d "$WP/contents/images"
 # Lossless, so the night sky's dark gradients don't band
-cjxl "$B/wallpaper.png" "$WP/contents/images/2000x1126.jxl" -d 0
+cjxl "$B/wallpaper.png" "$WP/contents/images/3344x1882.jxl" -d 0
 install -m 0644 "$B/wallpaper-preview.png" "$WP/contents/screenshot.png"
 cat > "$WP/metadata.json" <<'EOF'
 {
@@ -71,7 +71,7 @@ cat > "$WP/metadata.json" <<'EOF'
 EOF
 for name in default.jxl default-dark.jxl; do
     rm -f "/usr/share/backgrounds/$name"
-    ln -sr "$WP/contents/images/2000x1126.jxl" "/usr/share/backgrounds/$name"
+    ln -sr "$WP/contents/images/3344x1882.jxl" "/usr/share/backgrounds/$name"
 done
 # Anything still asking for Aurora's default wallpaper by name gets ours
 rm -rf /usr/share/wallpapers/Aurora
