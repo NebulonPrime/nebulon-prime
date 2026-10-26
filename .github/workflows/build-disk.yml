@@ -21,6 +21,8 @@ on:
     paths:
       - './disk_config/disk.toml'
       - './disk_config/iso*.toml'
+      - './Containerfile.installer'
+      - './build_files/installer-flatpaks.sh'
       - './.github/workflows/build-disk.yml'
 
 env:
@@ -45,7 +47,7 @@ jobs:
         suffix: ["", "-nvidia"]
     permissions:
       contents: read
-      packages: read
+      packages: write # pushes the :installer tag
       id-token: write
 
     steps:
@@ -80,13 +82,25 @@ jobs:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
 
+      # The ISO installs an image with the Flatpak apps already inside /var, so it works offline.
+      # Installed systems then switch to the regular signed :latest image (see disk_config/iso*.toml).
+      - name: Build offline installer image
+        if: matrix.disk-type == 'anaconda-iso'
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | sudo podman login ghcr.io -u "${{ github.actor }}" --password-stdin
+          sudo podman build -f Containerfile.installer \
+            --build-arg IMAGE="${IMAGE_REGISTRY}/${IMAGE_NAME}:${DEFAULT_TAG}" \
+            -t "${IMAGE_REGISTRY}/${IMAGE_NAME}:installer" .
+          sudo podman push "${IMAGE_REGISTRY}/${IMAGE_NAME}:installer"
+          echo "SOURCE_TAG=installer" >> ${GITHUB_ENV}
+
       - name: Build disk images
         id: build
         uses: osbuild/bootc-image-builder-action@8661cd3832544ad68c12dcde8681b13ab0f56a8d # main
         with:
           builder-image: ${{ env.BIB_IMAGE }}
           config-file: ${{ matrix.disk-type == 'anaconda-iso' && format('./disk_config/iso{0}.toml', matrix.suffix) || './disk_config/disk.toml' }}
-          image: ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.DEFAULT_TAG }}
+          image: ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.SOURCE_TAG || env.DEFAULT_TAG }}
           chown: ${{ env.USER_UID }}:${{ env.USER_GID }}
           types: ${{ matrix.disk-type }}
           additional-args: --use-librepo=True

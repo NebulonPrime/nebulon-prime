@@ -1,0 +1,14 @@
+# Installer variant: the regular image plus its preinstalled Flatpak apps baked into /var,
+# so the ISO gives a complete desktop with no internet. Only the disk-image workflow builds this
+# (tag :installer). Installs then switch to the regular, signed :latest image for updates; /var,
+# and the apps in it, carry over.
+
+ARG IMAGE=ghcr.io/nebulonprime/nebulon-prime:latest
+
+FROM scratch AS ctx
+COPY build_files/installer-flatpaks.sh /
+
+FROM ${IMAGE}
+RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
+    --mount=type=tmpfs,dst=/tmp \
+    bash /ctx/installer-flatpaks.sh
