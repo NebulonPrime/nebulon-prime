@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Nebulon Prime desktop style picker
+Exec=/usr/libexec/nebulon-layout-picker --first-run
+OnlyShowIn=KDE;
+NoDisplay=true
+X-KDE-autostart-phase=2

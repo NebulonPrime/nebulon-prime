@@ -5,6 +5,9 @@
 
 set -ouex pipefail
 
+# kdialog draws the first-login "Desktop Style" picker (/usr/libexec/nebulon-layout-picker)
+dnf5 install -y kdialog
+
 SRC=/ctx/desktop
 LNF=/usr/share/plasma/look-and-feel
 PROFILE=/usr/share/kde-settings/kde-profile/default/xdg

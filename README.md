@@ -23,13 +23,22 @@ A Windows-style desktop OS that runs Windows apps, built on Fedora Atomic (Unive
 - [x] Windows-style layouts (Win 11 default, Win 10, Win 7), switchable in System Settings > Global Theme
 - [x] CPU/RAM monitors in the taskbar
 - [x] Unified theme across KDE and GTK apps (Breeze, Nebulon violet accent)
-- [ ] Layout picker on first boot
+- [x] Layout picker on first login (also in the Start menu as "Desktop Style")
+- [x] Signed images; installs only accept updates signed with the Nebulon Prime key
 - [ ] Installer (Anaconda) branding
 - [ ] Matching theme for Wine apps
 - [ ] Per-icon desktop sizes
 - [ ] Multi-seat helper (two users, two screens, one PC)
 - [ ] Experimental: two cursors on one screen
 - [ ] Fully offline installer (Flatpaks embedded in the ISO)
+
+## Verifying images
+
+Images are signed with cosign. To check one yourself:
+
+```bash
+cosign verify --key system_files/usr/lib/pki/containers/nebulon-prime.pub ghcr.io/nebulonprime/nebulon-prime:latest
+```
 
 ## Building
 

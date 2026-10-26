@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Desktop Style
+GenericName=Choose a Windows-style layout
+Comment=Switch between Windows 11, 10 and 7 style taskbars and Start menus
+Exec=/usr/libexec/nebulon-layout-picker
+Icon=preferences-desktop-theme-global
+Categories=Settings;DesktopSettings;Qt;KDE;
+Keywords=layout;taskbar;start menu;windows;theme;

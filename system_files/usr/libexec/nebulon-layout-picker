@@ -1,0 +1,28 @@
+#!/bin/bash
+# Ask which Windows-style layout to use and apply it (theme + a freshly built taskbar).
+# Runs once at first login (--first-run, from /etc/xdg/autostart) and from the
+# "Desktop Style" entry in the Start menu.
+
+set -euo pipefail
+
+MARKER="${XDG_CONFIG_HOME:-$HOME/.config}/nebulon-prime/layout-picked"
+
+if [[ "${1:-}" == "--first-run" ]]; then
+    [[ -e "$MARKER" ]] && exit 0
+    # Let Plasma finish starting before the dialog appears
+    sleep 6
+fi
+
+choice="$(kdialog --title "Nebulon Prime" --geometry 460x260 \
+    --radiolist "Choose your desktop style. You can change it later from the Start menu (Desktop Style)." \
+    win11 "Windows 11 style: centred Start button and apps, dark theme" on \
+    win10 "Windows 10 style: Start button on the left, dark theme" off \
+    win7 "Windows 7 style: classic Start menu, light theme" off)" || choice=""
+
+mkdir -p "$(dirname "$MARKER")"
+touch "$MARKER"
+
+# Cancel keeps the current layout
+[[ -z "$choice" ]] && exit 0
+
+plasma-apply-lookandfeel --apply "org.nebulonprime.${choice}.desktop" --resetLayout
