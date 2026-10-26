@@ -45,20 +45,10 @@ function addTaskList(panel, fill) {
     return tasks;
 }
 
-// CPU and RAM use, shown as live numbers in the taskbar
+// CPU and RAM use as live numbers ("CPU 6%  RAM 23%"); our own widget, in
+// system_files/usr/share/plasma/plasmoids/org.nebulonprime.sysmon
 function addSystemMonitors(panel) {
-    const monitors = [
-        ["org.kde.plasma.systemmonitor.cpu", "cpu/all/usage", "CPU"],
-        ["org.kde.plasma.systemmonitor.memory", "memory/physical/used", "RAM"],
-    ];
-    for (let i = 0; i < monitors.length; ++i) {
-        const w = panel.addWidget(monitors[i][0]);
-        w.currentConfigGroup = ["Appearance"];
-        w.writeConfig("chartFace", "org.kde.ksysguard.textonly");
-        // The sensors' own names ("Usage", "Used") don't say which is which
-        w.currentConfigGroup = ["SensorLabels"];
-        w.writeConfig(monitors[i][1], monitors[i][2]);
-    }
+    panel.addWidget("org.nebulonprime.sysmon");
 }
 
 function addTrayAndClock(panel) {

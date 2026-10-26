@@ -1,0 +1,14 @@
+{
+    "KPackageStructure": "Plasma/Applet",
+    "KPlugin": {
+        "Authors": [{ "Name": "Nebulon Prime" }],
+        "Category": "System Information",
+        "Description": "CPU and RAM use as live numbers in the taskbar",
+        "Icon": "utilities-system-monitor",
+        "Id": "org.nebulonprime.sysmon",
+        "License": "GPL-2.0-or-later",
+        "Name": "CPU and RAM Monitor",
+        "Version": "1.0"
+    },
+    "X-Plasma-API-Minimum-Version": "6.0"
+}
