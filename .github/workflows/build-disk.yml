@@ -23,6 +23,7 @@ on:
       - './disk_config/iso*.toml'
       - './Containerfile.installer'
       - './build_files/installer-flatpaks.sh'
+      - './build_files/brand-iso.sh'
       - './.github/workflows/build-disk.yml'
 
 env:
@@ -104,6 +105,18 @@ jobs:
           chown: ${{ env.USER_UID }}:${{ env.USER_GID }}
           types: ${{ matrix.disk-type }}
           additional-args: --use-librepo=True
+
+      - name: Brand the installer
+        if: matrix.disk-type == 'anaconda-iso'
+        run: |
+          OUT="${{ steps.build.outputs.output-directory }}"
+          ISO="$(find "$OUT" -name '*.iso' | head -n1)"
+          bash build_files/brand-iso.sh "$ISO"
+          # Refresh any checksum file written next to the ISO
+          for sum in "$(dirname "$ISO")"/*{CHECKSUM,.sha256}; do
+            [ -e "$sum" ] && (cd "$(dirname "$ISO")" && sha256sum "$(basename "$ISO")" > "$(basename "$sum")")
+          done
+          ls -la "$(dirname "$ISO")"
 
       - name: Upload disk images and Checksum to Job Artifacts
         if: inputs.upload-to-s3 != true && github.event_name != 'pull_request'
