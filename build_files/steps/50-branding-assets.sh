@@ -57,23 +57,21 @@ gtk-update-icon-cache -f /usr/share/icons/hicolor || true
 ### Wallpaper (KDE wallpaper package + the default.jxl links Aurora's screens point at)
 WP=/usr/share/wallpapers/NebulonPrime
 install -d "$WP/contents/images"
-render "$B/wallpaper.svg" /tmp/wallpaper.png 3840 2160
-cjxl /tmp/wallpaper.png "$WP/contents/images/3840x2160.jxl" -d 1
-render "$B/wallpaper.svg" "$WP/contents/screenshot.png" 400 225
-rm -f /tmp/wallpaper.png
+# Lossless, so the night sky's dark gradients don't band
+cjxl "$B/wallpaper.png" "$WP/contents/images/1672x941.jxl" -d 0
+install -m 0644 "$B/wallpaper-preview.png" "$WP/contents/screenshot.png"
 cat > "$WP/metadata.json" <<'EOF'
 {
     "KPlugin": {
         "Authors": [{ "Name": "Nebulon Prime" }],
         "Id": "NebulonPrime",
-        "License": "CC-BY-SA-4.0",
         "Name": "Nebulon Prime"
     }
 }
 EOF
 for name in default.jxl default-dark.jxl; do
     rm -f "/usr/share/backgrounds/$name"
-    ln -sr "$WP/contents/images/3840x2160.jxl" "/usr/share/backgrounds/$name"
+    ln -sr "$WP/contents/images/1672x941.jxl" "/usr/share/backgrounds/$name"
 done
 # Anything still asking for Aurora's default wallpaper by name gets ours
 rm -rf /usr/share/wallpapers/Aurora
