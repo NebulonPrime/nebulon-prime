@@ -15,9 +15,16 @@ disable_if_present() {
 
 # Fedora's anonymous "count me" ping (sent with update checks to estimate user numbers)
 disable_if_present rpm-ostree-countme.service rpm-ostree-countme.timer
-for repo in /etc/yum.repos.d/*.repo; do
+# Repo files live in /etc/yum.repos.d on older bases and under /usr on newer ones; cover all of them
+shopt -s nullglob
+for repo in /etc/yum.repos.d/*.repo /etc/distro.repos.d/*.repo /usr/share/dnf5/repos.d/*.repo; do
     sed -i 's/^countme=1/countme=0/' "$repo"
 done
+shopt -u nullglob
+# And the global default, for any repo that doesn't set it
+if [[ -f /etc/dnf/dnf.conf ]] && ! grep -q '^countme=' /etc/dnf/dnf.conf; then
+    sed -i '/^\[main\]/a countme=0' /etc/dnf/dnf.conf
+fi
 
 # Crash reporters that can upload data
 disable_if_present abrtd.service abrt-journal-core.service abrt-oops.service abrt-xorg.service
