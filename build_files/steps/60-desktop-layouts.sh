@@ -12,6 +12,8 @@ SRC=/ctx/desktop
 LNF=/usr/share/plasma/look-and-feel
 PROFILE=/usr/share/kde-settings/kde-profile/default/xdg
 ACCENT="139,92,246" # Nebulon violet
+# Installed by 50-branding-assets.sh
+WALLPAPER_FILE="$(basename "$(ls /usr/share/wallpapers/NebulonPrime/contents/images/*.jxl | head -n1)")"
 
 make_theme() { # make_theme <id> <display name> <layout.js> <color scheme> <icon theme>
     local id="org.nebulonprime.$1.desktop" dir
@@ -59,8 +61,12 @@ LayoutName=org.kde.breeze.desktop
 library=org.kde.breeze
 
 [KSplash]
-Theme=org.kde.breeze.desktop
+Theme=$id
 EOF
+
+    # Login splash (replaces Breeze's "Plasma by KDE" screen)
+    install -d "$dir/contents/splash"
+    sed "s|WALLPAPER_FILE|$WALLPAPER_FILE|" "$SRC/Splash.qml" > "$dir/contents/splash/Splash.qml"
 
     cat "$SRC/common.js" "$SRC/$3" > "$dir/contents/layouts/org.kde.plasma.desktop-layout.js"
 }
@@ -81,8 +87,12 @@ grep -q '^AccentColor=' "$PROFILE/kdeglobals" ||
 
 cat > "$PROFILE/ksplashrc" <<'EOF'
 [KSplash]
-Theme=org.kde.breeze.desktop
+Theme=org.nebulonprime.win11.desktop
 EOF
+
+# KDE's first-boot wizard repeats what the installer already asked (user, language, keyboard,
+# time) and can't be rebranded, so mark it as done. Delete /etc/plasma-setup-done to bring it back.
+touch /etc/plasma-setup-done
 
 cat > "$PROFILE/kscreenlockerrc" <<'EOF'
 [Greeter]
