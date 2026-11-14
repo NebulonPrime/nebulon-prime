@@ -85,6 +85,13 @@ sed -i \
 grep -q '^AccentColor=' "$PROFILE/kdeglobals" ||
     sed -i "/^\[General\]/a AccentColor=$ACCENT" "$PROFILE/kdeglobals"
 
+# Start menu favourites for new users: Aurora's list minus its docs link, plus Bottles for Windows apps
+cat > "$PROFILE/kicker-extra-favoritesrc" <<'EOF'
+[General]
+Prepend=preferred://browser;systemsettings.desktop;org.kde.dolphin.desktop;com.usebottles.bottles.desktop;io.github.kolunmi.Bazaar.desktop;org.kde.kate.desktop;org.kde.konsole.desktop
+IgnoreDefaults=true
+EOF
+
 cat > "$PROFILE/ksplashrc" <<'EOF'
 [KSplash]
 Theme=org.nebulonprime.win11.desktop
